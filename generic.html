@@ -66,29 +66,49 @@
               系统<br />
               介绍
             </h1>
-            <p>
-              Aenean ornare velit lacus varius enim ullamcorper proin aliquam<br />
-              facilisis ante sed etiam magna interdum congue. Lorem ipsum
-              dolor<br />
-              amet nullam sed etiam veroeros.
-            </p>
           </header>
           <div class="image main">
-            <img src="images/login-page.jpg" alt="" />
+            <img src="images/front-page.jpg" alt="" />
+          </div>
+          <p><h2>需求分析 :</h2>
+            
+            酒店需要一个系统来管理房间和客户信息，以便进行预订和入住等操作。<br />系统需要具备以下功能：<br />
+            1、
+            能够对客户进行身份认证，并提供客户进行房间预订、取消预订和支付等操作的功能。<br />
+            2、
+            能够对房间进行管理，包括查看房间状态、添加、修改和删除房间等操作。<br />
+            3、
+            能够对支付信息进行管理，包括查看、添加、修改和删除支付信息等操作。<br />
+            4、
+            能够对管理员信息进行管理，包括查看、添加、修改和删除管理员信息等操作。<br />
+            5、能够生成各种报表，以便酒店管理人员进行业务分析和决策。
+          </p>
+          <div class="image main">
+            <img src="images/index.jpg" alt="" />
           </div>
           <p>
-            Donec eget ex magna. Interdum et malesuada fames ac ante ipsum
-            primis in faucibus. Pellentesque venenatis dolor imperdiet dolor
-            mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor
-            sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet,
-            fergiat. Pellentesque in mi eu massa lacinia malesuada et a elit.
-            Donec urna ex, lacinia in purus ac, pretium pulvinar mauris. Nunc
-            lorem mauris, fringilla in aliquam at, euismod in lectus.
-            Pellentesque habitant morbi tristique senectus et netus et malesuada
-            fames ac turpis egestas. Curabitur sapien risus, commodo eget turpis
-            at, elementum convallis enim turpis, lorem ipsum dolor sit amet
-            nullam.
+            为了实现上述需求，系统需要具备以下结构：<br />
+            1、
+            酒店房间信息表（hoteld）：存储酒店房间的总数量、预定数量和可用数量，与酒店管理相关。<br />
+            2、
+            房间信息表（roomd）：存储酒店每个房间的详细信息，包括房间号、床位数、是否有空调、是否有电视、是否有网络和房间价格，与酒店管理和客房服务相关。<br />
+            3、
+            支付信息表（paymentsf）：存储客人的支付信息，包括支付编号、姓、名、信用卡号、电子邮件地址、预定的房间号、入住时间、支付方式和总金额，与客房服务和财务管理相关。<br />
+            4、
+            管理员信息表（administrator）：存储管理员的账户信息，包括用户名和密码，与酒店管理相关。
           </p>
+          <h2>数据流程图</h2>
+          <div class="image main">
+            <img src="images/concept.jpg" alt="" />
+          </div>
+          <h2>数据字典</h2>
+          <div class="image main">
+            <img src="images/dictionary.jpg" alt="" />
+          </div>
+          <h2>全局E-R图</h2>
+          <div class="image main">
+            <img src="images/global.jpg" alt="" />
+          </div>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
             dapibus rutrum facilisis. Class aptent taciti sociosqu ad litora
