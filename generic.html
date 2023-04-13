@@ -110,20 +110,105 @@
             <img src="images/global.jpg" alt="" />
           </div>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
-            dapibus rutrum facilisis. Class aptent taciti sociosqu ad litora
-            torquent per conubia nostra, per inceptos himenaeos. Etiam tristique
-            libero eu nibh porttitor fermentum. Nullam venenatis erat id
-            vehicula viverra. Nunc ultrices eros ut ultricies condimentum.
-            Mauris risus lacus, blandit sit amet venenatis non, bibendum vitae
-            dolor. Nunc lorem mauris, fringilla in aliquam at, euismod in
-            lectus. Pellentesque habitant morbi tristique senectus et netus et
-            malesuada fames ac turpis egestas. In non lorem sit amet elit
-            placerat maximus. Pellentesque aliquam maximus risus. Donec eget ex
-            magna. Interdum et malesuada fames ac ante ipsum primis in faucibus.
-            Pellentesque venenatis dolor imperdiet dolor mattis sagittis.
-            Praesent rutrum sem diam, vitae egestas enim auctor sit amet.
-            Pellentesque leo mauris, consectetur id ipsum.
+            <h2>数据库实现</h2>
+4.1建表语句<br />
+CREATE TABLE IF NOT EXISTS hoteld (<br />
+    t_r NUMBER,<br />
+    r_r NUMBER,<br />
+    t_s NUMBER<br />
+)<br />
+<br />
+CREATE TABLE IF NOT EXISTS roomd (<br />
+    rn NUMBER PRIMARY KEY,<br />
+    beds NUMBER,<br />
+    ac VARCHAR(10),<br />
+    tv VARCHAR(10),<br />
+    internet VARCHAR(10),<br />
+    price NUMBER(10)<br />
+)<br />
+<br />
+CREATE TABLE IF NOT EXISTS paymentsf (<br />
+    id NUMBER PRIMARY KEY,<br />
+    f_name VARCHAR,<br />
+    l_name VARCHAR,<br />
+    c_number VARCHAR,<br />
+    email VARCHAR,<br />
+    r_n NUMBER,<br />
+    day VARCHAR,<br />
+    month VARCHAR,<br />
+    year VARCHAR,<br />
+    time VARCHAR,<br />
+    method VARCHAR,<br />
+    totalamt VARCHAR<br />
+)<br />
+<br />
+CREATE TABLE IF NOT EXISTS administrator (<br />
+    username VARCHAR(50) PRIMARY KEY,<br />
+    password VARCHAR(50)<br />
+)<br />
+<br />
+4.2存储过程<br />
+注：挑选了比较有代表性的一些存储过程<br />
+1.		查询所有的客房信息<br />
+CREATE PROCEDURE get_all_rooms()<br />
+BEGIN<br />
+    SELECT * FROM roomd;<br />
+END;<br />
+<br />
+2.	根据客房号查询客房信息<br />
+CREATE PROCEDURE get_room_by_number(IN room_number INT)<br />
+BEGIN<br />
+    SELECT * FROM roomd WHERE rn = room_number;<br />
+END;<br />
+<br />
+3.	查询特定日期内的预订信息<br />
+CREATE PROCEDURE get_bookings_by_date(IN booking_date DATE)<br />
+BEGIN<br />
+    SELECT * FROM paymentsf WHERE day = DAY(booking_date) AND month = MONTH(booking_date) AND year = YEAR(booking_date);<br />
+END;<br />
+<br />
+4.	根据客户名查询客户的预订信息<br />
+CREATE PROCEDURE get_booking_by_customer_name(IN customer_name VARCHAR(100))<br />
+BEGIN<br />
+    SELECT * FROM paymentsf WHERE f_name LIKE CONCAT('%', customer_name, '%') OR l_name LIKE CONCAT('%', customer_name, '%');<br />
+END;<br />
+<br />
+5.	查询所有管理员账户<br />
+CREATE PROCEDURE get_all_administrators()<br />
+BEGIN<br />
+    SELECT * FROM administrator;<br />
+END;<br />
+<br />
+4.3触发器和自定义函数<br />
+注：挑选了比较有代表性的一些触发器和自定义函数<br />
+1.	触发器：在roomd表中插入新记录时，自动在hoteld表中创建一条对应的记录。<br />
+CREATE TRIGGER new_room AFTER INSERT ON roomd<br />
+FOR EACH ROW <br />
+BEGIN<br />
+    INSERT INTO hoteld (t_r, r_r, t_s) VALUES (0, NEW.rn, 0);<br />
+END;<br />
+<br />
+2.	触发器：在roomd表中删除一条记录时，自动在hoteld表中删除对应的记录。<br />
+CREATE TRIGGER delete_room AFTER DELETE ON roomd<br />
+FOR EACH ROW <br />
+BEGIN<br />
+    DELETE FROM hoteld WHERE r_r = OLD.rn;<br />
+END;<br />
+<br />
+3.	自定义函数：计算一个订单的总价。<br />
+CREATE FUNCTION total_price(num_rooms INT, price INT, num_days INT) RETURNS INT<br />
+BEGIN<br />
+    RETURN num_rooms * price * num_days;<br />
+END;<br />
+<br />
+4.	自定义函数：获取某个房间类型的数量。<br />
+CREATE FUNCTION get_room_type_count(room_type VARCHAR(10)) RETURNS INT<br />
+BEGIN<br />
+    DECLARE count INT;<br />
+    SELECT COUNT(*) INTO count FROM roomd WHERE beds = room_type;<br />
+    RETURN count;<br />
+END;<br />
+
           </p>
         </section>
       </div>
