@@ -110,13 +110,16 @@
             <img src="images/global.jpg" alt="" />
           </div>
           <p>
-            <h2>数据库实现</h2>
-4.1建表语句<br />
+            <h2>数据库实现</h2><br />
+<h3>4.1建表语句</h3>
 CREATE TABLE IF NOT EXISTS hoteld (<br />
     t_r NUMBER,<br />
     r_r NUMBER,<br />
     t_s NUMBER<br />
 )<br />
+<div class="image main">
+            <img src="images/hoteld.jpg" alt="" />
+          </div>
 <br />
 CREATE TABLE IF NOT EXISTS roomd (<br />
     rn NUMBER PRIMARY KEY,<br />
@@ -126,6 +129,9 @@ CREATE TABLE IF NOT EXISTS roomd (<br />
     internet VARCHAR(10),<br />
     price NUMBER(10)<br />
 )<br />
+<div class="image main">
+            <img src="images/roomd.jpg" alt="" />
+          </div>
 <br />
 CREATE TABLE IF NOT EXISTS paymentsf (<br />
     id NUMBER PRIMARY KEY,<br />
@@ -141,25 +147,38 @@ CREATE TABLE IF NOT EXISTS paymentsf (<br />
     method VARCHAR,<br />
     totalamt VARCHAR<br />
 )<br />
+<div class="image main">
+            <img src="images/paymentsf.jpg" alt="" />
+          </div>
 <br />
 CREATE TABLE IF NOT EXISTS administrator (<br />
     username VARCHAR(50) PRIMARY KEY,<br />
     password VARCHAR(50)<br />
 )<br />
+<div class="image main">
+            <img src="images/admin.jpg" alt="" />
+          </div>
 <br />
-4.2存储过程<br />
+<h3>4.2存储过程</h3><br />
 注：挑选了比较有代表性的一些存储过程<br />
 1.		查询所有的客房信息<br />
 CREATE PROCEDURE get_all_rooms()<br />
 BEGIN<br />
     SELECT * FROM roomd;<br />
 END;<br />
+<div class="image main">
+            <img src="images/proced1.jpg" alt="" />
+          </div>
 <br />
 2.	根据客房号查询客房信息<br />
 CREATE PROCEDURE get_room_by_number(IN room_number INT)<br />
 BEGIN<br />
     SELECT * FROM roomd WHERE rn = room_number;<br />
-END;<br />
+    
+END;
+<div class="image main">
+            <img src="images/proced2.jpg" alt="" />
+          </div><br />
 <br />
 3.	查询特定日期内的预订信息<br />
 CREATE PROCEDURE get_bookings_by_date(IN booking_date DATE)<br />
@@ -186,7 +205,13 @@ CREATE TRIGGER new_room AFTER INSERT ON roomd<br />
 FOR EACH ROW <br />
 BEGIN<br />
     INSERT INTO hoteld (t_r, r_r, t_s) VALUES (0, NEW.rn, 0);<br />
-END;<br />
+END;
+<div class="image main">
+            <img src="images/trig1.jpg" style="width: 800px" alt="" />
+            <img src="images/proced1-5.jpg" style="width: 200px;margin-left: 300px;" alt="" />
+            <br />
+            <img src="images/trig2.jpg" style="width: 800px" alt="" />
+          </div><br />
 <br />
 2.	触发器：在roomd表中删除一条记录时，自动在hoteld表中删除对应的记录。<br />
 CREATE TRIGGER delete_room AFTER DELETE ON roomd<br />
@@ -199,7 +224,10 @@ END;<br />
 CREATE FUNCTION total_price(num_rooms INT, price INT, num_days INT) RETURNS INT<br />
 BEGIN<br />
     RETURN num_rooms * price * num_days;<br />
-END;<br />
+END;
+<div class="image main">
+            <img src="images/trig3.jpg" style="width: 500px;" alt="" />
+          </div><br /><br />
 <br />
 4.	自定义函数：获取某个房间类型的数量。<br />
 CREATE FUNCTION get_room_type_count(room_type VARCHAR(10)) RETURNS INT<br />
@@ -207,7 +235,10 @@ BEGIN<br />
     DECLARE count INT;<br />
     SELECT COUNT(*) INTO count FROM roomd WHERE beds = room_type;<br />
     RETURN count;<br />
-END;<br />
+END;
+<div class="image main">
+            <img src="images/trig4.jpg" style="width: 500px;" alt="" />
+          </div><br />
 
           </p>
         </section>
